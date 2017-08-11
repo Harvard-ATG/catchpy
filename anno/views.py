@@ -517,7 +517,7 @@ def process_partial_update(request, anno_id):
     pass
 
 
-@require_http_methods(['POST', 'GET'])
+@require_http_methods(['POST', 'GET', 'OPTIONS'])
 @csrf_exempt
 @require_catchjwt
 def create_or_search(request):
@@ -525,8 +525,18 @@ def create_or_search(request):
     if request.method == 'POST':
         anno_id = generate_uid()
         return crud_api(request, anno_id)
-    else:  # it's a GET
+    elif request.method == 'GET':
         return search_api(request)
+    else:  # cors hack: it's a OPTIONS
+        response = HttpResponse()
+        response.status_code = 200
+        response['Access-Control-Allow-Origin'] = 'http://{}'.format(
+            request.get_host(), request.get_port())
+        response['Access-Control-Allow-Methods'] = \
+                'GET, POST, PUT, HEAD, DELETE'
+        response['Accept-Control-Allow-Headers'] = \
+                'X-Annotator-Auth-Token, Authorization'
+        return response
 
 
 @require_http_methods('POST')
