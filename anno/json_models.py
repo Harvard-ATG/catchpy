@@ -609,9 +609,6 @@ class AnnoJS(object):
         x1 = json.dumps(annojs1, sort_keys=True, indent=4)
         x2 = json.dumps(annojs2, sort_keys=True, indent=4)
 
-        #if x1 != x2:  # naomi naomi naomi naomi naomi debug debug debug
-        #    logger.debug('AnnoJS.are-similar FALSE: {}\n{}'.format(x1, x2))
-
         return x1 == x2
 
 

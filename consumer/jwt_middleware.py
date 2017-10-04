@@ -85,7 +85,7 @@ def jwt_middleware(get_response):
             msg = 'failed to find auth token in request header'
 
         request.catchjwt['error'] = msg
-        if msg && PRINT_TOKEN_ERRORS:
+        if msg and PRINT_TOKEN_ERRORS:
             logger.warn(msg)
 
         response = get_response(request)
@@ -137,7 +137,7 @@ def fetch_consumer(token_payload):
     try:
         consumer = Consumer._default_manager.get(pk=consumer_key)
     except Consumer.DoesNotExist:
-        logger.error('invalid consumerKey({}) in auth token'.format(
+        logger.warn('invalid consumerKey({}) in auth token'.format(
             consumer_key))
         return None
     else:

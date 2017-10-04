@@ -322,7 +322,6 @@ def partial_update_api(request, anno_id):
 
 def search_api(request):
     # naomi note: always return catcha
-    logger.debug('search query=({})'.format(request.GET))
     try:
         resp = _do_search_api(request, back_compat=False)
         return JsonResponse(status=HTTPStatus.OK, data=resp)
@@ -343,7 +342,6 @@ def search_api(request):
 @csrf_exempt
 @require_catchjwt
 def search_back_compat_api(request):
-    logger.debug('search_back_compat query=({})'.format(request.GET))
     try:
         resp = _do_search_api(request, back_compat=True)
         return JsonResponse(status=HTTPStatus.OK, data=resp)
