@@ -16,6 +16,7 @@ from .models import Consumer
 JWT_AUTH_HEADER = 'HTTP_AUTHORIZATION'
 JWT_ANNOTATOR_HEADER = 'HTTP_X_ANNOTATOR_AUTH_TOKEN'
 PRINT_REQUEST_TIME = getattr(settings, 'CATCH_LOG_REQUEST_TIME', False)
+PRINT_TOKEN_ERRORS = False
 
 logger = logging.getLogger(__name__)
 
@@ -84,7 +85,7 @@ def jwt_middleware(get_response):
             msg = 'failed to find auth token in request header'
 
         request.catchjwt['error'] = msg
-        if msg:
+        if msg && PRINT_TOKEN_ERRORS:
             logger.warn(msg)
 
         response = get_response(request)

@@ -363,8 +363,6 @@ def search_back_compat_api(request):
 def _do_search_api(request, back_compat=False):
 
     payload = request.catchjwt
-    logger.debug('_do_search payload[userid]=({}) | back_compat={}'.format(
-        payload['userId'], back_compat))
 
     # filter out the soft-deleted
     query = Anno._default_manager.filter(anno_deleted=False)
