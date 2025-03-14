@@ -5,7 +5,6 @@ from .base import *
 # since the app is behind a load balancer.
 USE_X_FORWARDED_HOST = True
 
-
 def get_ecs_task_ips():
     """
     Retrieve the internal ip address(es) for task, if running with AWS ECS and awsvpc networking mode
